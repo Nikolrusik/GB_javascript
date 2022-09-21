@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+  <style>
+    .product {
+      width: 200px;
+      padding: 10px;
+      float: left;
+      margin-right: 30px;
+      box-shadow: 0 0 4px black;
+    }
+  </style>
+</head>
+
+<body>
+  <!--
+Обязательное задание.
+помогите 
+
+Выполнить все задачи в теге script. Комментарии, в которых написаны задачи, не
+стирать, код с решением задачи пишем под комментарием.
+-->
+  <div class="product">
+    <div class="productName">Товар 1</div>
+    <img src="https://loremflickr.com/200/300/goods?lock=2" alt="">
+    <button>В корзину</button>
+  </div>
+  <div class="product">
+    <div class="productName">Товар 2</div>
+    <img src="https://loremflickr.com/200/300/goods?lock=12" alt="">
+    <button>В корзину</button>
+  </div>
+  <div class="product">
+    <div class="productName">Товар 3</div>
+    <img src="https://loremflickr.com/200/300/goods?lock=33" alt="">
+    <button>В корзину</button>
+  </div>
+
+  <script>
+    "use strict";
+
+    /*
+    1. Установите всем элементам с классом "productName" размер шрифта 24px.
+     */
+    /*
+    2. Установите всем элементам с классом "product" внешний отступ справа 50px.
+     */
+
+    // в одном же цикле лучше обрабатывать, чем в 2-х?
+    const productEls = document.querySelectorAll('.product');
+    for (const productEl of productEls) {
+      productEl.querySelector('.productName').style.cssText = "font-size: 24px;";
+      productEl.style.cssText = "margin-right: 50px;";
+    }
+
+    /*
+    3. При клике на кнопку "В корзину" название кнопки должно поменяться на
+    "Добавлено" и кнопка должна стать неактивной.
+     */
+    function addCart(el) {
+      el.disabled = true;
+      el.innerText = 'Добавлено';
+    }
+
+    document.body.addEventListener('click', (event) => {
+      if (event.target.nodeName === "BUTTON") {
+        addCart(event.target);
+      };
+    })
+
+    /*
+    4. Создайте полную (глубокую) копию элемента с классом product, измените в
+    этой копии путь до картинки на:
+    https://loremflickr.com/200/300/goods?lock=37
+    Поставьте название товара в данной копии "Товар 4" и замените последний
+    отображенный товар на странице на созданную копию. У данной копии также
+    должен правильно работать код из 3-го задания.
+     */
+
+    const copyEl = document.querySelector('.product').cloneNode(true);
+    copyEl.querySelector('.productName').innerText = "Товар 4";
+    copyEl.querySelector('img').src = 'https://loremflickr.com/200/300/goods?lock=37';
+    console.log(copyEl);
+    document.body.querySelector('.product:nth-last-child(2)').innerHTML = copyEl.innerHTML;
+    // last-child почему-то не работает, через консоль нашёл такой вариант, не знаю почему
+
+    /*
+    5. По истечении 2 секунд с момента открытия страницы первый товар должен быть
+    удален из html.
+     */
+
+    setTimeout(function () {
+      document.querySelector('.product').remove();
+    }, 2000);
+
+  </script>
+</body>
+
+</html>
